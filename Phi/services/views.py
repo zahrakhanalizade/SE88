@@ -224,6 +224,15 @@ def follow_unfollow(request, username):
 			})
 
 def get_followees(request, username):
+	return folo(request, username,'view-following-list.html')
+
+
+def get_followers(request, username):
+	return folo(request, username,'view-followers-list.html')
+
+
+
+def folo(request, username, str):
 	if request.user.is_authenticated():
 		member = Member.objects.get(user=request.user)
 		following = Member.objects.filter(user__username=username)[0].followees.all()
@@ -231,14 +240,15 @@ def get_followees(request, username):
 
 		layout = get_layout(member)
 
-		return my_render_method_5(followers, following, layout, member, request,'view-following-list.html')
+		return my_render_method_5(followers, following, layout, member, request, str)
 	else:
 		login_form = MemberLoginForm()
 		reg_form = MemberRegModelForm()
 		return render(request, 'new-visit.html', {
-				'login_form': login_form,
-				'reg_form': reg_form
-			})
+			'login_form': login_form,
+			'reg_form': reg_form
+		})
+
 
 def my_render_method_5(followers, following, layout, member, request,str):
 	return render(request, str, test(followers,following,member,layout))
@@ -258,23 +268,6 @@ def test(followers, following, member,layout):
 	}
 
 
-def get_followers(request, username):
-	if request.user.is_authenticated():
-		member = Member.objects.get(user=request.user)
-		
-		followers = Member.objects.filter(user__username=username)[0].member_set.all()
-		following = Member.objects.filter(user__username=username)[0].followees.all()
-
-		layout = get_layout(member)
-
-		return my_render_method_5(followers, following, layout, member, request,'view-followers-list.html')
-	else:
-		login_form = MemberLoginForm()
-		reg_form = MemberRegModelForm()
-		return render(request, 'new-visit.html', {
-				'login_form': login_form,
-				'reg_form': reg_form
-			})
 
 
 

@@ -226,7 +226,6 @@ def follow_unfollow(request, username):
 def get_followees(request, username):
 	if request.user.is_authenticated():
 		member = Member.objects.get(user=request.user)
-		
 		following = Member.objects.filter(user__username=username)[0].followees.all()
 		followers = Member.objects.filter(user__username=username)[0].member_set.all()
 
@@ -243,18 +242,22 @@ def get_followees(request, username):
 
 
 def my_render_method_4(followers, following, layout, member, request):
-	return render(request, 'view-following-list.html', {
-		'following': following,
-		'followers': followers,
-		'member': member,
-		'like_notifs': layout['like_notifs'],
+	return render(request, 'view-following-list.html', test(followers, following, member).update(
+				  {'like_notifs': layout['like_notifs'],
 		'comment_notifs': layout['comment_notifs'],
 		'follow_notifs': layout['follow_notifs'],
 		'mozakhraf_notifs': layout['mozakhraf_notifs'],
 		'notif_num': layout['notif_num'],
 		'recmovies': layout['recmovies'],
 		'recusers': layout['recusers']
-	})
+	}))
+
+
+def test(followers, following, member):
+	return {
+		'following': following,
+		'followers': followers,
+		'member': member}
 
 
 def get_followers(request, username):
@@ -277,10 +280,7 @@ def get_followers(request, username):
 
 
 def my_render_method_5(followers, following, layout, member, request):
-	return render(request, 'view-followers-list.html', {
-		'followers': followers,
-		'following': following,
-		'member': member,
+	return render(request, 'view-followers-list.html', test(followers,following,member).update({
 		'like_notifs': layout['like_notifs'],
 		'comment_notifs': layout['comment_notifs'],
 		'follow_notifs': layout['follow_notifs'],
@@ -288,7 +288,7 @@ def my_render_method_5(followers, following, layout, member, request):
 		'notif_num': layout['notif_num'],
 		'recmovies': layout['recmovies'],
 		'recusers': layout['recusers']
-	})
+	}))
 
 
 def get_single_post(request, post_id):

@@ -43,7 +43,7 @@ function validateRegForm() {
 }
 
 function checkRequired(value, inputName, inputTitle) {
-	if (value == null || value == "") {
+	if (value === null || value == "") {
         react(inputName, "Field must be filled out.", inputTitle);
         return false;
     }

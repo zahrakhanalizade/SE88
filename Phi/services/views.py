@@ -71,12 +71,8 @@ def get_user_profile(request, username):
 
 		# uni ke mikhad bebine
 		member_to_visit = Member.objects.filter(user__username=username)[0]
- 
-		if request.GET:
-			notif_id = request.GET['notifID']
-			notif = models.Notification.objects.get(id=notif_id)
-			notif.seen = True
-			notif.save()
+
+		my_if_get(request)
 
 		if len(list(member.followees.filter(user__username=username))) == 0: # he is not following!
 			do_i_follow_her = False
@@ -123,6 +119,15 @@ def get_user_profile(request, username):
 				'login_form': login_form,
 				'reg_form': reg_form
 			})
+
+
+def my_if_get(request):
+	if request.GET:
+		notif_id = request.GET['notifID']
+		notif = models.Notification.objects.get(id=notif_id)
+		notif.seen = True
+		notif.save()
+
 
 def edit_user_profile(request, username):
 	if request.user.is_authenticated():
@@ -284,11 +289,7 @@ def get_single_post(request, post_id):
 	if request.user.is_authenticated():
 		member = Member.objects.get(user=request.user)
 
-		if request.GET:
-			notif_id = request.GET['notifID']
-			notif = models.Notification.objects.get(id=notif_id)
-			notif.seen = True
-			notif.save()
+		my_if_get(request)
 		
 		post = models.Post.objects.get(id=post_id)
 

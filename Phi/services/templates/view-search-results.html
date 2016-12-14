@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+search results for {{ word }}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid users-col">
+	<ul class="nav nav-tabs results-ul" role="tablist">
+		<li role="presentation" class="active"><a href="#people" role="tab" data-toggle="tab">People</a></li>
+		<li role="presentation"><a href="#movies" role="tab" data-toggle="tab">Movies</a></li>
+	</ul>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane fade in active" id="people">
+			{% for person in members %}
+			<a href="/members/{{ person.user.username }}/">
+				<div class="col-md-4 result-item">
+					<div class="col-md-6">
+						<img src="{{ person.prof_image.url }}/" class="img-responsive img-thubmnail" style="height:80px; width:80px;" />
+					</div>
+					<div class="col-md-6"><h4>{{ person.displayed_name }}</h4></div>
+				</div>
+			</a>
+			{% endfor %}
+		</div>
+
+
+		<div role="tabpanel" class="tab-pane fade" id="movies">
+			{% for movie in movies %}
+			<a href="/movies/{{ movie.id }}/">
+				<div class="col-md-4 result-item">
+					<div class="col-md-6">
+						{% if movie.poster_image %}
+						<img src="{{ movie.poster_image.url }}/" class="img-responsive img-thubmnail" style="height:80px; width:80px;" />
+						{% else %}
+						<img src="/media/media/unknown-movie.png" class="img-responsive img-thubmnail" style="height:80px; width:80px;" />
+						{% endif %}
+					</div>
+					<div class="col-md-6"><h4>{{ movie.name }}</h4></div>
+				</div>
+			</a>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

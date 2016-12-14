@@ -1,0 +1,266 @@
+{% extends "layout.html" %}
+{% load range %}
+{% load humanize %}
+
+{% block title %}
+{{ member_to_visit.displayed_name }}
+{% endblock %}
+
+{% block content %}
+                    <!-- User profile view -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4 text-center">
+                                    <img src="{{ member_to_visit.prof_image.url }}/" style="width: 200px; height: 200px;" id="userprofile-img" class="img center-block img-thumbnail img-responsive">
+                                </div>
+                                <div class="col-md-8">
+                                    <h2>{{ member_to_visit.user.username }} {% if this_is_me %}<a href="/members/{{ member.user.username }}/edit" class="btn btn-large btn-default glyphicon glyphicon-wrench"></a> {% endif %}</h2>
+                                    <h3>{{ member_to_visit.displayed_name }}</h3>
+                                    <hr class="colorgraph" />
+                                    <p><span class="glyphicon glyphicon-chevron-right"></span><strong>Bio: </strong> {{ member_to_visit.bio }}</p>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                            {% if not this_is_me %}
+                                                {% if do_i_follow_her %}<button class="btn btn-danger btn-block" id="follow-me"> Unfollow me :( </button>{% endif %}
+                                                {% if not do_i_follow_her %}<button class="btn btn-success btn-block" id="follow-me"> Follow me! </button>{% endif %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <a href="/members/{{ member_to_visit.user.username }}/followers/" class="btn btn-info btn-block"><span class="badge" id="followers-badge">{{ num_of_followers }} </span> Followers </a>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <a href="/members/{{ member_to_visit.user.username }}/following/" class="btn btn-primary btn-block"><span class="badge" id="following-badge">{{ num_of_followees }} </span> Following </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of user profile view -->
+                    <hr class="colorgraph" />
+                    <!-- POSTS OF THIS USER -->
+                    {% for template_post in template_posts %}
+                    <div class="container-fluid" id="p{{ template_post.post.id }}">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <a href="/members/{{ template_post.post.member.user.username }}">
+                                        <img class="img img-responsive" src="{{ template_post.post.member.prof_image.url }}/" style="width: 70px; height: 70px; margin: auto;" />
+                                    </a>
+                                </div>
+                                <div class="col-md-10">
+                                    <h5><a href="/members/{{ template_post.post.member.user.username }}/">{{ template_post.post.member.displayed_name }}</a> posted about <a href="/movies/{{ template_post.post.movie.id }}/">{{ template_post.post.movie.name }}</a></h5>
+                                    <h5>
+                                        {% for i in template_post.rate|get_range %}
+                                        <span class="glyphicon glyphicon-star"></span>
+                                        {% endfor %}
+                                        {% for i in template_post.crate|get_range %}
+                                        <span class="glyphicon glyphicon-star-empty"></span>
+                                        {% endfor %}
+                                        | {{ template_post.rate }} out of 10
+                                    </h5>
+                                </div>
+                            </div>
+                            <hr class="classy" />
+
+                            <div class="row">
+                                <div class="col-md-8" style="padding-left: 40px;">
+                                    <div class="well">
+                                        <p>
+                                            {{ template_post.post.post_text }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="/movies/{{ template_post.post.movie.id }}/"  data-container="body" title="{{ template_post.post.movie.name }} &#013; Director: {{ template_post.post.movie.director }} &#013; Average score: {{ template_post.post.movie.avg_rate }}/10 &#013; Running time: {{ template_post.post.movie.running_time }}m" data-placement="right">
+                                    {% if template_post.post.movie.poster_image %}
+                                     <img class="img-responsive img-thumbnail" src="{{ template_post.post.movie.poster_image.url }}/" style="width: 200px; height: 250px;" />
+                                    {% else %}
+                                    <img class="img-responsive img-thumbnail" src="/media/media/unknown-movie.png" style="width: 200px; height: 250px;" />
+                                    {% endif %}
+                                    </a>
+                                </div>
+                            </div>
+                            <hr class="classy" />
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <ul class="list-inline list-unstyled">
+                                        <li><span><i class="glyphicon glyphicon-calendar"></i><a href="/posts/{{ template_post.post.id }}/"> {{ template_post.post.datetime|naturaltime }} </a></span></li>
+                                        <li>|</li>
+                                        <li>
+                                            <small class="btn-group btn-group-xs">
+                                                <a id="like{{ template_post.post.id }}" class="like-unlike btn btn-default" href="/posts/{{ template_post.post.id }}/like_unlike/">
+                                                {% if template_post.liked %}
+                                                <i class="glyphicon glyphicon-heart"></i>
+                                                {% else %}
+                                                <i class="glyphicon glyphicon-heart-empty"></i>
+                                                {% endif %}
+                                                </a>
+                                                <strong class="btn btn-info disabled">{{ template_post.like_num }}</strong>
+                                            </small>
+                                        </li>
+                                        <li>|</li>
+                                        <li>
+                                            <small class="btn-group btn-group-xs">
+                                                <a class="btn btn-default disabled"><i class="glyphicon glyphicon-comment"></i></a>
+                                                <strong class="btn btn-info disabled cm-num">{{ template_post.comment_num }}</strong>
+                                            </small>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <form method="GET" action="/posts/{{ template_post.post.id }}/comment/">
+                                        <div class="input-group">
+                                            <input id="post{{ template_post.post.id }}" type="text" class="form-control" placeholder="Add a comment" />
+                                            <span class="input-group-btn"><button type="submit" class="add-comment btn btn-default" data-id="{{ template_post.post.id }}"><span class="glyphicon glyphicon-comment"></span></button></span>
+                                        </div>
+                                    </form>
+                                    <div>
+                                        <ul class="comments-list">
+                                            <!--Comments go here!-->
+                                            {% for comment in template_post.comments %}
+                                                <li class="comment">
+                                                    <a class="pull-left">
+                                                        <img  style="width: 50px; height: 50px;" class="avatar" src="{{ comment.member.prof_image.url }}/">
+                                                    </a>
+                                                    <div class="comment-body">
+                                                        <div class="comment-heading">
+                                                            <a href="/members/{{ comment.member.user.username }}/"><h4 class="user"> {{ comment.member.displayed_name }} </h4></a>
+                                                            <h5 class="time">Posted at {{ comment.datetime|naturaltime }} </h5>
+                                                        </div>
+                                                        <p> {{ comment.comment_text }} </p>
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr class="colorgraph"/>
+                    </div>
+                    {% endfor %}
+                    <!-- End of post -->
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    // follow scripts
+    if ({{ member_to_visit.id }} != {{ member.id }} ) {
+        var button = document.getElementById("follow-me");
+        button.addEventListener('click', function() {
+            var link = '/members/{{ member_to_visit.user.username }}/follow_unfollow/';
+            var xhr = new XMLHttpRequest();
+            xhr.open('get', link);
+            xhr.onreadystatechange = function() {
+                var DONE = 4;
+                var OK = 200;
+                if (xhr.readyState === DONE) {
+                    if (xhr.status === OK) {
+                        // toggle follow <-> unfollow
+                        if (xhr.responseText === 'follow') {
+                            document.getElementById("follow-me").innerHTML = 'Unfollow me :(';
+                            document.getElementById("follow-me").className = 'btn btn-danger btn-block';
+                            var num_of_followers = parseInt(document.getElementById("followers-badge").innerHTML) + 1
+                            document.getElementById("followers-badge").innerHTML = num_of_followers
+
+                        }
+                        else if (xhr.responseText === 'unfollow') {
+                            document.getElementById("follow-me").innerHTML = 'Follow me!';
+                            document.getElementById("follow-me").className = 'btn btn-success btn-block'
+                            var num_of_followers = parseInt(document.getElementById("followers-badge").innerHTML) - 1
+                            document.getElementById("followers-badge").innerHTML = num_of_followers
+                        }
+                    }
+                }
+            };
+            xhr.send(null);
+        });
+    }
+
+    //Comment
+    buttons = document.getElementsByClassName("add-comment");
+    for(var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', function(event) {
+            event.preventDefault();
+            var post_id = this.getAttribute('data-id');
+            var comment_text = document.getElementById("post" + post_id).value;
+
+            var xhr = new XMLHttpRequest();
+
+            var make_url = '/posts/' + post_id + '/comment/?comment_text=' + comment_text + '&post-id=' + post_id;
+
+            xhr.open('get', make_url);
+            xhr.send(null);
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4) {
+                    if(xhr.status === 200) {
+                        if (!(comment_text === "")) {
+                            document.getElementById("post" + post_id).value = "";
+                            var newComment = document.createElement("li");
+                            newComment.setAttribute("class", "comment");
+                            var uname = "{{ member.displayed_name }}";
+                            var img_url = "{{ member.prof_image.url }}";
+
+                            newComment.innerHTML = "<a class=\"pull-left\"> <img  style=\"width: 50px; height: 50px;\" class=\"avatar\" src=\"{{ member.prof_image.url }}/\"></a><div class=\"comment-body\"><div class=\"comment-heading\"><a href=\"" +img_url+ "\"><h4 class=\"user\">" + uname + "</h4></a><h5 class=\"time\">Posted " + "just now" + "</h5></div><p>" + comment_text + "</p></div>";
+
+                            document.querySelector("#p" + post_id + " .comments-list").appendChild(newComment);
+                            cm_num = parseInt(document.querySelector("#p" + post_id + " .cm-num").innerHTML)
+                            document.querySelector("#p" + post_id + " .cm-num").innerHTML = cm_num + 1
+                        }
+                    }
+                    else {
+                        // alert('ERROR!');
+                    }
+                }
+            };
+        });
+    }
+
+    //Like
+    likeLinks = document.getElementsByClassName('like-unlike');
+    for(var i = 0; i < likeLinks.length; i++) {
+        likeLinks[i].addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var xhr = new XMLHttpRequest();
+
+            var srcID = this.getAttribute('id');
+            var url = this.getAttribute('href');
+
+            xhr.open('get', url);
+            xhr.send(null);
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4) {
+                    if(xhr.status === 200) {
+                        if(xhr.responseText === 'Liked') {
+                            src = document.getElementById(srcID);
+                            src.firstChild.nextSibling.className = 'glyphicon glyphicon-heart';
+                            src.nextSibling.nextSibling.innerHTML = parseInt(src.nextSibling.nextSibling.innerHTML) + 1;
+                        }
+                        else {
+                            src = document.getElementById(srcID);
+                            src.firstChild.nextSibling.className = 'glyphicon glyphicon-heart-empty';
+                            src.nextSibling.nextSibling.innerHTML = parseInt(src.nextSibling.nextSibling.innerHTML) - 1;
+                        }
+                    }
+                    else {
+
+                    }
+                }
+            };
+        });
+    }
+</script>
+{% endblock %}

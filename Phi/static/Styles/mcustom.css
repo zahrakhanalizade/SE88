@@ -1,0 +1,206 @@
+body{background: #eee;}
+
+html,body{
+    position: relative;
+    height: 100%;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.home-container{
+    position: relative;
+    width: 1040px;
+    top: 160px;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fff;
+    height: 406px;
+}
+
+.sub-home-left{
+    border: 1px solid #ccc;
+    border-radius: 10px 0px 0px 10px;
+    background-color: #eee;
+    height: 382px;
+    padding: 60px;
+}
+
+.sub-home-left h2{
+    
+}
+
+.sub-home-left p{
+    margin: auto;
+}
+
+.sub-home-right{
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 0px 10px 10px 0px;
+    background-color: #eee;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
+
+.sub-home-btn-login{
+  position: absolute;
+  top: 190px;
+  left: 165px;
+}
+
+.sub-home-btn-reg{
+  position: absolute;
+  top: 190px;
+  left: 275px;
+}
+
+.login-container{
+    position: relative;
+    width: 300px;
+    margin: 80px auto;
+    padding: 20px 40px 40px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.avatar{
+    width: 100px;height: 100px;
+    margin: 10px auto 30px;
+    border-radius: 100%;
+    border: 2px solid #aaa;
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+    background-image: url(../images/logo.jpg);
+}
+
+.form-box button{
+    margin-top:15px;
+    padding: 10px 20px;
+}
+
+.forgetting-option {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.forgetting-option input{
+    margin-top: 15px;
+}
+
+.forgetting-option button{
+    margin-top:15px;
+    width: 68px;
+    margin-left: 150px;
+    text-align: center;
+}
+
+.suggestion{
+    margin-top: 15px;
+    text-align: left;
+}
+
+input{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    height: 40px;
+    border: 1px solid #ccc;
+    background: #fafafa;
+}
+
+input:focus{
+    outline: 0;
+}
+
+@-webkit-keyframes slideDown {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-1em);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.detailsanim[open] {
+    -webkit-animation: slideDown 2s;
+}
+
+.users-col{
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    border-radius: 10px;
+    padding-bottom: 15px;
+}
+
+.users-col .row img {
+    padding: 10px;
+}
+
+.users-col div {
+    text-align: center;
+}
+
+.users-col h4 {
+    margin-top: 25px;
+}
+
+.results-ul {
+    margin-top: 10px;
+}
+
+.result-item {
+    margin-top: 10px;
+}
+
+.question-table-intro {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    border-radius: 10px;
+    padding: 25px;
+}
+
+.question-table {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.question-table a {
+    text-decoration: none;
+}
+
+.question-table a:hover {
+    color: #00A0FF;
+}
+
+/* Phase 2 */
+
+.errorlist {
+    margin-bottom: 0px;
+    padding-left: 14px;
+}
+
+.errorlist li {
+    text-align: left;
+    color: red;
+}

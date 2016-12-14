@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Welcome to Phi!</title>
+    {% load staticfiles %}
+	<link href="{% static "Styles/bootstrap.min.css" %}" rel="stylesheet" />
+	<link href="{% static "Styles/mcustom.css" %}" rel="stylesheet" />
+	<link href="{% static "Styles/jquery-ui.min.css" %}" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+	<div class="home-container">
+		<div class="col-md-6 sub-home-left">
+			<h2>Welcome to &#966;!</h2>
+			<p>Phi is a social network for movie lovers. For more information please visit our <a href="/FAQ/">FAQ</a> page or continue by clicking on one of the buttons provided.</p>
+		</div>
+		<div class="col-md-6 sub-home-right">
+			<img src="{% static "images/hollywood-cinerama-dome-2003-sugimoto.jpg" %}" class="img-rounded" />
+			<a class="btn btn-primary sub-home-btn-login" href="#" data-toggle="modal" data-target="#login">Login</a>
+			<a class="btn btn-primary sub-home-btn-reg" href="#" data-toggle="modal" data-target="#register">Register</a>
+
+			<div id="login" class="modal fade">
+				<div class="login-container">
+            		<div class="avatar">
+            		</div>
+            		<div class="form-box">
+                        <form action="/login/" method="post">
+                            {% csrf_token %}
+                            {% for field in login_form %}
+                            <div class="fieldWrapper">
+                                {{ field }}
+                            </div>
+                            {% endfor %}
+                            <button id="login-btn" class="btn btn-info btn-block" type="submit" style="padding: 10px;">Login</button>
+                        </form>
+                    </div>
+    				<div class="forgetting-option">
+            			<details class="detailsanim">
+            				<summary>Forgot your password?</summary>
+            				<div>
+                				<form action="" method="" onsubmit="sendForgottenPassword()">
+                    				<input name="pass-email" type="text" placeholder="john@cinema.com" />
+                    				<button id="send" class="btn btn-info" type="submit">Send</button>
+                				</form>
+            				</div>
+            			</details>
+            		</div>
+            		<div class="suggestion"><a href="/register/">Don't have an account?</a></div>
+    			</div>  
+			</div>
+
+			<div id="register" class="modal fade">
+				<div class="login-container">
+            		<h4>Just a Few Easy Steps...!</h4>
+            		<div class="form-box">
+                		<form name="regForm" action="/register/" method="post" onsubmit="return validateRegForm()">
+                            {% csrf_token %}
+                            {% for field in reg_form %}
+                            <div class="fieldWrapper">
+                                {{ field }}
+                                {{ field.errors }}
+                            </div>
+                            {% endfor %}
+                            <button id="reg-btn" class="btn btn-info btn-block" type="submit" style="padding: 10px;">Register</button>
+                        </form>
+            		</div>
+            		<div class="suggestion"><a href="/login/">Already have an account?</a></div>
+    			</div>
+			</div>
+		</div>
+	</div>
+	</div>
+    <script src="{% static "Scripts/jquery-1.9.1.min.js" %}"></script>
+    <script src="{% static "Scripts/bootstrap.min.js" %}"></script>
+    <script src="{% static "Scripts/jquery-ui.min.js" %}"></script>
+    <script src="{% static "Scripts/validate.js" %}"></script>
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker();
+        });
+        $( "#id_captcha_1").attr("placeholder", "Captcha");
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Phi - Register</title>
+    {% load staticfiles %}
+	<link href="{% static "Styles/bootstrap.min.css" %}" rel="stylesheet" />
+	<link href="{% static "Styles/mcustom.css" %}" rel="stylesheet" />
+    <link href="{% static "Styles/jquery-ui.min.css" %}" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+	<div class="login-container">
+            <h4>Just a Few Easy Steps...!</h4>
+            <div class="form-box">
+                <form name="regForm" action="/register/" method="post" onsubmit="return validateRegForm()">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="fieldWrapper">
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                    {% endfor %}
+                    <button id="reg-btn" class="btn btn-info btn-block" type="submit" style="padding: 10px;">Register</button>
+                </form>
+            </div>
+            <div class="suggestion"><a href="/login/">Already have an account?</a></div>
+    </div>  
+	</div>
+	<script src="{% static "Scripts/jquery-1.9.1.min.js" %}"></script>
+    <script src="{% static "Scripts/bootstrap.min.js" %}"></script>
+    <script src="{% static "Scripts/jquery-ui.min.js" %}"></script>
+    <script src="{% static "Scripts/validate.js" %}"></script>
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker();
+        });
+        $( "#id_captcha_1").attr("placeholder", "Captcha");
+    </script>
+</body>
+</html>

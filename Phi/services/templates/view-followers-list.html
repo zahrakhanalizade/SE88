@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+People
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid users-col">
+	<ul class="nav nav-tabs results-ul" role="tablist">
+		<li role="presentation" class="active"><a href="#followers" role="tab" data-toggle="tab">Followers</a></li>
+		<li role="presentation"><a href="#following" role="tab" data-toggle="tab">Following</a></li>
+	</ul>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane fade in active" id="followers">
+			{% for person in followers %}
+			<a href="/members/{{ person.user.username }}/">
+				<div class="col-md-4 result-item">
+					<div class="col-md-6">
+						<img src="{{ person.prof_image.url }}/" class="img-responsive img-thubmnail" style="height:80px; width:80px;" />
+					</div>
+					<div class="col-md-6"><h4>{{ person.displayed_name }}</h4></div>
+				</div>
+			</a>
+			{% endfor %}
+		</div>
+
+		<div role="tabpanel" class="tab-pane fade" id="following">
+			{% for person in following %}
+			<a href="/members/{{ person.user.username }}/">
+				<div class="col-md-4 result-item">
+					<div class="col-md-6">
+						<img src="{{ person.prof_image.url }}/" class="img-responsive img-thubmnail" style="height:80px; width:80px;" />
+					</div>
+					<div class="col-md-6"><h4>{{ person.displayed_name }}</h4></div>
+				</div>
+			</a>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

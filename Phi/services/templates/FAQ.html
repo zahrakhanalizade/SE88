@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Phi - Frequently Asked Questions</title>
+  {% load staticfiles %}
+	<link href="{% static "Styles/bootstrap.min.css" %}" rel="stylesheet" />
+	<link href="{% static "Styles/mcustom.css" %}" rel="stylesheet" />
+</head>
+<body>
+	<div class="container">
+	<div class=" col-md-8 col-md-offset-2 question-table-intro">
+		<h2 style="text-align: center;">Welcome to &#966;'s FAQ page!</h2>
+		<br />
+		We are determined to improve this page little by little. So please, if you have any questions that you believe might be others' question too, contact us at gheini72 [at] gmail [dot] com or ppashakhanloo [at] gmail [dot] com. We will consider your question and add it to this page if it is in fact a frequent one. Thank you in advance.
+	</div>
+	<div class="panel-group col-md-8 col-md-offset-2 question-table" id="accordion" role="tablist" aria-multiselectable="true">
+  		<div class="panel panel-default">
+    		<div class="panel-heading" role="tab" id="headingOne">
+      			<h4 class="panel-title">
+        			<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          			<span class="glyphicon glyphicon-question-sign"></span> Why are you called Phi?
+        			</a>
+      			</h4>
+    		</div>
+    		<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      			<div class="panel-body">
+        			That's an excellent question. Well, let's get a little bit into details here. A film, also called a movie or motion picture, is actually a series of still images which, when shown on a screen, creates the illusion of moving images due to the Phi phenomenon. The Phi phenomenon is the optical illusion of perceiving continuous motion between separate objects viewed rapidly in succession. The phenomenon was defined by <a href="http://en.wikipedia.org/wiki/Max_Wertheimer">Max Wertheimer</a> in the <a href="http://en.wikipedia.org/wiki/Gestalt_psychology">Gestalt psychology</a> in 1912 and along with <a href="http://en.wikipedia.org/wiki/Persistence_of_vision">persistence of vision</a> formed a part of the base of the theory of cinema, applied by <a href="http://en.wikipedia.org/wiki/Hugo_M%C3%BCnsterberg">Hugo M&uuml;nsterberg</a> in 1916. It is part of a larger process called <a href="http://en.wikipedia.org/wiki/Motion_perception">motion perception</a>.
+        			<br />
+        			So, as you've probably already guessed, we are called Phi because of this amazing phenomenon.
+      			</div>
+    		</div>
+  		</div>
+  	</div>
+	</div>
+	<script src="{% static "Scripts/jquery-1.9.1.min.js" %}"></script>
+    <script src="{% static "Scripts/bootstrap.min.js" %}"></script>
+</body>
+</html>

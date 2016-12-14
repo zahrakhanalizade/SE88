@@ -163,14 +163,14 @@ def edit_user_profile(request, username):
 				return HttpResponseRedirect('/members/' + member.user.username + '/')
 			
 			layout = get_layout(member)
-			return my_render_method(form, layout, member, request)
+			return my_render_method('form',form, layout, member, request)
 		else:
 			if member.user.username != username:
 				return HttpResponseRedirect('/members/' + member.user.username + '/edit/')
 
 			form = EditProfileForm(member=member)
 			layout = get_layout(member)
-			return my_render_method(form, layout, member, request)
+			return my_render_method('form',form, layout, member, request)
 	else:
 		login_form = MemberLoginForm()
 		reg_form = MemberRegModelForm()
@@ -179,19 +179,6 @@ def edit_user_profile(request, username):
 				'reg_form': reg_form
 			})
 
-
-def my_render_method(form, layout, member, request):
-	return render(request, 'edit-user-profile.html', {
-		'form': form,
-		'member': member,
-		'like_notifs': layout['like_notifs'],
-		'comment_notifs': layout['comment_notifs'],
-		'follow_notifs': layout['follow_notifs'],
-		'mozakhraf_notifs': layout['mozakhraf_notifs'],
-		'notif_num': layout['notif_num'],
-		'recmovies': layout['recmovies'],
-		'recusers': layout['recusers']
-	})
 
 
 
@@ -284,7 +271,7 @@ def get_single_post(request, post_id):
 
 		layout = get_layout(member)
 
-		return my_render_method_6(layout, member, request, template_post)
+		return my_render_method('template_post',layout, member, request, template_post)
 	else:
 		login_form = MemberLoginForm()
 		reg_form = MemberRegModelForm()
@@ -294,9 +281,9 @@ def get_single_post(request, post_id):
 			})
 
 
-def my_render_method_6(layout, member, request, template_post):
-	return render(request, 'view-single-post.html', {
-		'template_post': template_post,
+def my_render_method(str,form, layout, member, request):
+	return render(request, 'edit-user-profile.html', {
+		str: form,
 		'member': member,
 		'like_notifs': layout['like_notifs'],
 		'comment_notifs': layout['comment_notifs'],
@@ -306,6 +293,7 @@ def my_render_method_6(layout, member, request, template_post):
 		'recmovies': layout['recmovies'],
 		'recusers': layout['recusers']
 	})
+
 
 
 def like_unlike(request, post_id):
